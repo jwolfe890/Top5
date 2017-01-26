@@ -8,8 +8,10 @@ def new
 end
 
 def create
+
+    binding.pry
+
   @list = List.new(list_params)
-  binding.pry
 end
 
 private
