@@ -1,0 +1,38 @@
+<br>
+
+<%= form_for @list, url: user_lists_path(@user, @list) do |f| %>
+
+<%= f.label :subject %>
+<%= f.text_field :subject %>
+
+<%= f.label :number1 %>
+<%= f.text_field :number1 %>
+
+<%= f.label :number2 %>
+<%= f.text_field :number2 %>
+
+<%= f.label :number3 %>
+<%= f.text_field :number3 %>
+
+<%= f.label :number4 %>
+<%= f.text_field :number4 %>
+
+<%= f.label :number5 %>
+<%= f.text_field :number5 %>
+
+<br>
+<br>
+
+<%= f.fields_for :list_topics do |ff| %>
+<%= ff.label "Choose a Topic"  %><br>
+<%= ff.text_field :content %>
+<%= ff.collection_select(:id, @all_topics, :id, :name, {}, {multiple: true}) %>
+<% end %>
+
+<br>
+<br>
+
+<%= f.submit %>
+
+<% end %>
+

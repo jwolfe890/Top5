@@ -1,0 +1,5 @@
+<h1>Hello</h1>
+
+<% if user_signed_in? %>
+<%= link_to "Create A Top 5 List!", new_user_list_path(current_user.id) %>
+<% end %>
