@@ -1,5 +1,7 @@
+<h1>EDIT</h1>
+          
 <br>
-  <%= form_for @list, url: user_lists_path(@user, @list) do |f| %>  
+  <%= form_for @list, url: user_list_path(@list), method: "patch" do |f| %>  
   <%= f.label :subject %>
   <%= f.text_field :subject %>
 <br>

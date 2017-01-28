@@ -14,8 +14,7 @@ ActiveRecord::Schema.define(version: 20170126030535) do
 
   create_table "list_topics", force: :cascade do |t|
     t.integer "list_id"
-    t.integer "user_id"
-    t.string  "content"
+    t.integer "topic_id"
   end
 
   create_table "lists", force: :cascade do |t|
