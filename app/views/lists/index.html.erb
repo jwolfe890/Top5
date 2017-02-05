@@ -1,0 +1,10 @@
+<br>
+
+<% @all_lists.each do |list| %>
+
+<% if list.user %> 
+<li><%= link_to list.subject, list_path(list) %></li>
+<% end %>
+
+<% end %>
+

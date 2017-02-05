@@ -4,42 +4,54 @@ class ListsController < ApplicationController
     @list = List.new
     @user = User.find_by(id: params[:user_id])
     @all_topics = Topic.all
-    @list.topics.build 
+    @list.list_topics.build 
   end
 
   def create
-    binding.pry
-    # Could add a hidden_field for the user_id
-    @user = User.find_by(id: params[:user_id])
-    @list = @user.lists.build(list_params)
-    binding.pry
-    if @user.save
-      redirect_to edit_list_path(@list.id) 
-      # user_list_path(@user.id, @user.lists.last.id) 
-    end
+    if params[:list_topic]
+      @user = User.find_by(id: params[:user_id])
+      @user.found_lists = []
+      array = params[:list_topic][:topic_id].delete_if(&:empty?)
+      @user.finder(array)
+      redirect_to profile_path(:param1 => 1) 
+    else
+      @user = User.find_by(id: params[:user_id])
+      @list = List.new(list_params)
+        if @list.save
+          redirect_to user_list_path(@user, @list)
+        end
+    end 
   end
 
   def show
-
+    @rating = Rating.new
+    @user = User.find_by(id: params[:user_id])
+    @list = List.find_by(id: params[:id])
   end
 
   def edit
-    binding.pry
+    @user = User.find_by(id: params[:user_id])
     @list = List.find_by(id: params[:id])
-    @user = User.find_by(id: @list.user_id)
+    @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
+    @list2 = List.new
     @all_topics = Topic.all
   end
 
+  def index
+    @all_lists = List.non_user_lists(current_user)
+  end 
+
   def update
-    binding.pry
+    @user = User.find_by(id: params[:list][:user_id])
     @list = List.find(params[:id])
-    @list.update(list_params)
-    binding.pry
+    if @list.update(list_params)
+      redirect_to user_list_path(@user, @list)
+    end 
   end 
 
 private
 
   def list_params
-    params.require(:list).permit(:subject, :topics_attributes => [:id, id: []])
+    params.require(:list).permit(:title, :number1, :number2, :number3, :number4, :number5, :user_id, :list_topics_attributes => [topic_id: []])
   end
 end

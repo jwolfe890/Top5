@@ -1,0 +1,35 @@
+
+<h1>User Profile Page</h1>
+<%= link_to "Create A Top 5 List", new_user_list_path(current_user.id) %>
+<br>
+<br>
+<%= link_to "View All the Top 5 Lists", lists_path %>
+<br>
+
+<h3>All Your Lists</h3>
+<% @lists.each do |list| %>
+<li><%= link_to list.title, user_list_path(list.user, list) %></li> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+<% end %>
+
+<h3>Most Recent Top 5 Lists</h3>
+<% @recent.each do |list| %>
+<li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+<% end %>
+
+<h3>Highest Rated Lists</h3>
+<% @highest.each do |list| %>
+<li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+<% end %>
+
+<% if @user.found_lists %>
+<h2>Found Lists</h2>
+<% @user.found_lists[0].each do |list| %>
+<li><%= link_to list.title, list_path(list) %> <% if list.average_rating %> Average Rating: <%= list.average_rating %><% end %>
+<% end %>
+<% end %>
+
+<h3>Search Lists By Topic</h3>
+<%= form_for @submit, url: user_lists_path(@user, @list) do |f| %>
+<%= f.collection_select(:topic_id, @all_topics, :id, :name, {}, {multiple: true}) %>
+<%= f.submit "Search Lists By Topic" %>
+<% end %>

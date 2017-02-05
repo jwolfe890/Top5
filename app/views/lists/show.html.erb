@@ -1,1 +1,30 @@
-<h1>Hello</h1>
+<h2><%= @list.title %></h2>
+#1. <%= @list.number1 %><br>
+#2. <%= @list.number2 %><br>
+#3. <%= @list.number3 %><br>
+#4. <%= @list.number4 %><br>
+#5. <%= @list.number5 %><br>
+
+<p>Topics:</p>
+<% @list.topics.each do |topic| %>
+<%= topic.name %>
+<% end %>
+
+<br>
+<br>
+
+<% if @list.user == current_user %>
+<%= link_to "Edit List", edit_user_list_path(@list.user, @list) %>
+<% elsif @list.raters.include?(current_user) %>
+List's Average Rating: <%= @list.average_rating %>
+<br>
+<br>
+<% else %>
+<%= form_for @rating, url: list_ratings_path(@list, @rating) do |rate| %>
+<%= rate.number_field :rating, :in => 1..10 %>
+<%= rate.submit "Rate This List (1-10)" %>
+<% end %>
+<br>
+<br>
+<% end %>
+
