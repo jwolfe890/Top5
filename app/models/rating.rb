@@ -13,5 +13,4 @@ def calculate_average
   @list.save
 end 
 
-
 end

@@ -4,22 +4,19 @@ Rails.application.routes.draw do
 
   get 'profile', to: 'users#show', as: :profile
 
-  root 'welcome#home'
+  root 'users#show'
 
-  resources :lists
+  resources :lists, only: [:show, :index, :destroy]
 
-  resources :ratings
+  post '/lists/:id' => 'lists#destroy', :as => :destroy_list
 
   resources :users do
     resources :lists
   end
 
   resources :lists do 
-    resources :ratings
+    resources :ratings, only: [:create]
   end
 
-  post 'topic_search', to: 'users#create' 
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 
