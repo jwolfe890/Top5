@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'profile', to: 'users#show', as: :profile
 
-  root 'users#show'
+  root 'welcome#home'
 
   resources :lists, only: [:show, :index, :destroy]
 

@@ -1,0 +1,35 @@
+  <% if list.errors.any? %>
+    <div id="error_explanation">
+      <h3>
+        <%= pluralize(list.errors.count, "error") %>
+        prohibited this post from being saved:
+      </h3>
+
+      <ul>
+          <li>All Boxes Must Be Filled In</li>
+      </ul>
+     </div>
+  <% end %>
+
+  <br><%= f.label "Top Five Greatest:" %>
+  <%= f.text_field :title %><br>
+  <%= f.hidden_field :user_id, value: user.id %>
+  <br><%= f.label "#1" %>
+  <%= f.text_field :number1 %>
+  <br><%= f.label "#2" %>
+  <%= f.text_field :number2 %>
+  <br><%= f.label "#3" %>
+  <%= f.text_field :number3 %>
+  <br><%= f.label "#4" %>
+  <%= f.text_field :number4 %>
+  <br><%= f.label "#5" %>
+  <%= f.text_field :number5 %>
+<br>
+<br>
+
+ <%= f.fields_for :list_topics do |ff| %>
+  <%= ff.label "Edit Topic:"  %><br>
+  <%= ff.collection_select(:topic_id, all_topics, :id, :name, {:selected => list.topic_ids}, {multiple: true}) %>
+ <% end %>
+
+ <%= f.submit %>
