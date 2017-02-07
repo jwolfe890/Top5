@@ -13,7 +13,7 @@
   <br>
   <br>
 
-  <% if @list.user == current_user %>
+  <% if @list.user.id == current_user.id %>
     <%= link_to "Edit List", edit_user_list_path(@list.user, @list) %>
   <% elsif @list.raters.include?(current_user) %>
   List's Average Rating: <%= @list.average_rating %>

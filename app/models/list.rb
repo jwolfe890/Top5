@@ -1,5 +1,7 @@
 class List < ApplicationRecord
 
+require 'List'
+
 validates :title, :number1, :number2, :number3, :number4, :number5, presence: true
 
 after_save :change_title

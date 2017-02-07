@@ -1,4 +1,3 @@
-
 <h1>Your Profile Page</h1>
   <%= link_to "Create A Top 5 List", new_user_list_path(current_user.id) %>
 
@@ -9,9 +8,9 @@
 
 <h3>All Your Lists</h3>
 
-  <% @lists.each do |list| %>
-  <li><%= link_to list.title, user_list_path(list.user, list) %></li> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
-  <% end %>
+<% @lists.each do |list| %>
+<li><%= link_to list.title, user_list_path(list.user, list) %></li>
+<% end %>
 
 <h3>Most Recent Top 5 Lists</h3>
   <% @recent.each do |list| %>
@@ -26,7 +25,9 @@
 <% if @user.found_lists %>
   <h2>Found Lists</h2>
   <% @user.found_lists[0].each do |list| %>
+  <% if list != nil %>
   <li><%= link_to list.title, list_path(list) %> <% if list.average_rating %> Average Rating: <%= list.average_rating %><% end %>
+<% end %>
 <% end %>
 <% end %>
 

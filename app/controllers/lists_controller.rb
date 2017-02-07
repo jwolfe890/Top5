@@ -27,13 +27,13 @@ class ListsController < ApplicationController
   end
 
   def show
+    @user = @list.user
     @rating = Rating.new
     @list.save
   end
 
   def edit
     @list2 = List.new
-    @list2.list_topics.new
     @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
     @all_topics = Topic.all
   end
