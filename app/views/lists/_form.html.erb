@@ -29,7 +29,7 @@
 
  <%= f.fields_for :list_topics, list.list_topics.build do |ff| %>
   <%= ff.label "Edit Topic:"  %><br>
-  <%= ff.collection_select(:topic_id, all_topics, :id, :name, {:selected => list.topic_ids}, {multiple: true}) %>
+  <%= ff.collection_select(:topic_id, Topic.all, :id, :name, {:selected => list.topic_ids}, {multiple: true}) %>
  <% end %>
 
  <%= f.submit %>

@@ -1,6 +1,6 @@
   <%= form_for @list, url: user_lists_path(@user, @list) do |f| %> 
 
-  <%= render partial: "form", locals: {list: @list, user: @user, all_topics: @all_topics, f: f} %>
+  <%= render partial: "form", locals: {list: @list, user: @user, f: f} %>
 
   <% end %>
 

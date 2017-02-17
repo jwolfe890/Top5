@@ -1,12 +1,11 @@
 class ListsController < ApplicationController
 
-  before_action :find_user, except: [:index, :show, :destroy]
+  before_action :find_user, except: [:index, :show, :destroy, :edit]
   before_action :find_list, except: [:new, :create, :index]
 
   def new
     @list = List.new
     @all_topics = Topic.all
-    @list.list_topics.build 
   end
 
   def create
@@ -21,7 +20,6 @@ class ListsController < ApplicationController
           redirect_to user_list_path(@user, @list)          
         else
           render :new
-          @list.save
         end
     end 
   end
@@ -33,9 +31,15 @@ class ListsController < ApplicationController
   end
 
   def edit
-    @list2 = List.new
-    @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
-    @all_topics = Topic.all
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @list2 = List.new
+      @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
+      @all_topics = Topic.all
+    else
+      flash[:notice] = "You have to be the list creator to edit."
+      redirect_to user_path(current_user.id)
+      end   
   end
 
   def index
@@ -46,8 +50,6 @@ class ListsController < ApplicationController
     if @list.update(list_params)
       redirect_to user_list_path(@user, @list)
     else
-      @list2 = List.new
-      @all_topics = Topic.all
       render :edit
     end 
   end

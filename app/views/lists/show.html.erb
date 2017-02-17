@@ -32,6 +32,6 @@
 
   <br>
 
-  <% if @list.user == current_user %>
+  <% if @list.user.id == current_user.id %>
     <%= link_to 'Delete List', destroy_list_path(@list), method: "post" %>
   <% end %>

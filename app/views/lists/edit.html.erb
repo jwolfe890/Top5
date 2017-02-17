@@ -4,7 +4,7 @@
 
 <%= form_for @list, url: user_list_path(@list.user, @list), method: "patch" do |f| %>
 
-<%= render partial: "form", locals: {list: @list, user: @user, all_topics: @all_topics, f: f} %>
+<%= render partial: "form", locals: {list: @list, user: @user, f: f} %>
 
 <% end %>
 
