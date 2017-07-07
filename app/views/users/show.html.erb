@@ -5,12 +5,13 @@
 
 
 <br>
-  <div id="lists_link"><%= link_to "View All the Top 5 Lists", lists_path %></div>
+  <%= link_to "View All the Top 5 Lists", lists_path, :class => "lists_link" %>
 <br>
+
+<div id="lists"></div>
 
 <h3>Your Lists</h3>
 
-<% @lists.each do |list| %>
-<li><%= link_to list.title, user_list_path(list.user, list) %></li>
-<% end %>
+
+
 

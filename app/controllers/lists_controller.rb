@@ -43,9 +43,9 @@ class ListsController < ApplicationController
   end
 
   def index
-    @all_lists = List.non_user_lists(current_user)
+    @all_list = List.non_user_lists(current_user)
+    @all_lists = List.all
     render json: @all_lists
-    binding.pry
   end 
 
   def update
