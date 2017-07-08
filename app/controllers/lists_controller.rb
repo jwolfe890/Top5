@@ -3,6 +3,7 @@ class ListsController < ApplicationController
   before_action :find_user, except: [:index, :show, :destroy, :edit]
   before_action :find_list, except: [:new, :create, :index]
 
+
   def new
     @list = List.new
     @all_topics = Topic.all
@@ -43,13 +44,9 @@ class ListsController < ApplicationController
   end
 
   def index
-    # @all_list = List.non_user_lists(current_user)
-    binding.pry
     @all_lists = List.all
-    @all_lists
+    render json: @all_lists 
   end 
-
-    # render json: @all_lists
 
   def update
     if @list.update(list_params)
