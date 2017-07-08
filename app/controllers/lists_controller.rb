@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 
-  before_action :find_user, except: [:index, :show, :destroy, :edit]
+  before_action :find_user, except: [:index, :show, :destroy, :edit, :next]
   before_action :find_list, except: [:new, :create, :index]
 
 
@@ -29,6 +29,7 @@ class ListsController < ApplicationController
     @user = @list.user
     @rating = Rating.new
     @list.save
+    render json: @list 
   end
 
   def edit
@@ -55,6 +56,11 @@ class ListsController < ApplicationController
       render :edit
     end 
   end
+
+  def next
+    @next_post = @list.next
+    render json: @next_post
+  end 
 
   def destroy
     @user = @list.user

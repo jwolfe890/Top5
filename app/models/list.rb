@@ -42,4 +42,13 @@ scope :recent, -> { order('created_at desc').limit(5) }
       end
     end 
 
+    def next
+      list = List.where("id > ?", id).first
+      if list
+        list
+      else 
+        List.first
+      end 
+    end 
+
 end

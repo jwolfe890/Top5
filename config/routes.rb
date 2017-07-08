@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     resources :ratings, only: [:create]
   end
 
+  get '/lists/:id/next', to: 'lists#next'
+
 end
 
