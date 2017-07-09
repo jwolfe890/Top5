@@ -29,7 +29,6 @@ class ListsController < ApplicationController
     @user = @list.user
     @rating = Rating.new
     @list.save
-    @form = true
     render json: @list  
   end
 

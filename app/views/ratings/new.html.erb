@@ -1,5 +1,6 @@
+<br>
 <%= form_for @rating do |rate| %>
-<%= rate.number_field_tag 'quantity', nil, within: 1...10 %>
+<%= rate.number_field :rating, :in => 1..10 %>
 <%= rate.submit "Rate This List (1-10)" %>
 <% end %>
 <br>

@@ -23,9 +23,12 @@ $(function() {
           let newList = new List(data)
           let listHtml = newList.formatShow()
           let nextButton = newList.formatNext()
-          $('#lists').append(listHtml)
-          $('#comments').append(data2)
-          $('#next').append(nextButton)
+          let listTopics = newList.formatTopics()
+            $('#lists').append(listHtml)
+            $('#comments').append(data2)
+            $('#next').append(nextButton)
+            $('#lists').append("<p>Topics:<p>")
+            $('#lists').append(listTopics)
         })
       })
     })
@@ -66,8 +69,14 @@ $(function() {
     })
 
   function List(list) {
+    this.topics = list.topics
     this.id = list.id
     this.title = list.title
+    this.number1 = list.number1
+    this.number2 = list.number2
+    this.number3 = list.number3
+    this.number4 = list.number4
+    this.number5 = list.number5
   }
 
   List.prototype.formatIndex = function(){
@@ -77,9 +86,26 @@ $(function() {
     return listHtml
   }
 
+  List.prototype.formatTopics = function() {
+     var list = this.topics.map(function(tp) {
+      return $(
+        `
+        <div>${tp.name}</div>
+        `
+      )
+    })
+      return list
+  }
+
   List.prototype.formatShow = function(){
     let listHtml = `
       <h3>${this.title}</h3>
+        1. ${this.number1}<br>
+        2. ${this.number2}<br> 
+        3. ${this.number3}<br> 
+        4. ${this.number4}<br> 
+        5. ${this.number5}<br>
+        <br>
     `
     return listHtml
   }
