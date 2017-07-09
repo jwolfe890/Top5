@@ -10,6 +10,7 @@ $(function() {
     }).done(function(data) {
       $('#lists').html("")
       $('#average_rating').html("")
+      $('#next').html("")
       data.forEach(list => {
         let newList = new List(list)
         let listHtml = newList.formatIndex()
