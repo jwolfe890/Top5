@@ -1,5 +1,10 @@
 class RatingsController < ApplicationController
 
+def new
+  @rating = Rating.new
+  render :layout => false
+end 
+
 def create
   @rating = Rating.new(rating_params)
   @list = List.find_by(id: params[:list_id])

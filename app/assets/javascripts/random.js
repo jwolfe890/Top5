@@ -17,28 +17,36 @@ $(function() {
   $(document).on('click', ".list_link", (e) => {
       e.preventDefault()
       let id = $(e.target).attr('data-id') 
-      $.ajax({
-        method: "GET",
-        url: `/lists/${id}.json`
-      }).done(function(data) {
-        $('#lists').html("")
-        let newList = new List(data)
-        let listHtml = newList.formatShow()
-        $('#lists').append(listHtml)
+      $.get(`/lists/${id}.json`, function(data) {
+        $.get(`/ratings/new`, function(data2) {
+          debugger
+          $('#lists').html("")
+          let newList = new List(data)
+          let listHtml = newList.formatShow()
+          let nextButton = newList.formatNext()
+          $('#lists').append(listHtml)
+          $('#comments').append(data2)
+          $('#next').append(nextButton)
+        })
       })
     })
 
     $(document).on('click', ".next-list", (e) => {
       e.preventDefault()
       let id = $(e.target).attr('data-id') 
-      $.ajax({
-        method: "GET",
-        url: `/lists/${id}/next`
-      }).done(function(data) {
-        $('#lists').html("")
-        let newList = new List(data)
-        let listHtml = newList.formatShow()
-        $('#lists').append(listHtml)
+      $.get(`/lists/${id}/next`, function(data) {
+        $.get(`/ratings/new`, function(data2) {
+          debugger
+          $('#lists').html("")
+          $('#comments').html("")
+          $('#next').html("")
+            let newList = new List(data)
+            let listHtml = newList.formatShow()
+            let nextButton = newList.formatNext()
+              $('#lists').append(listHtml)
+              $('#comments').append(data2)
+              $('#next').append(nextButton)
+        })
       })
     })
 
@@ -57,9 +65,15 @@ $(function() {
   List.prototype.formatShow = function(){
     let listHtml = `
       <h3>${this.title}</h3>
-      <button class="next-list" data-id="${this.id}">Next</button>
     `
     return listHtml
+  }
+
+  List.prototype.formatNext = function(){
+    let nextButton = `
+      <button class="next-list" data-id="${this.id}">Next</button>
+    `
+    return nextButton
   }
 
 })

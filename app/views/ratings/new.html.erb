@@ -1,0 +1,6 @@
+<%= form_for @rating do |rate| %>
+  <%= rate.number_field :rating, :in => 1..10 %>
+<%= rate.submit "Rate This List (1-10)" %>
+<% end %>
+<br>
+<br>
