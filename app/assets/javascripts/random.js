@@ -19,7 +19,6 @@ $(function() {
       let id = $(e.target).attr('data-id') 
       $.get(`/lists/${id}.json`, function(data) {
         $.get(`/ratings/new`, function(data2) {
-          debugger
           $('#lists').html("")
           let newList = new List(data)
           let listHtml = newList.formatShow()
@@ -36,7 +35,6 @@ $(function() {
       let id = $(e.target).attr('data-id') 
       $.get(`/lists/${id}/next`, function(data) {
         $.get(`/ratings/new`, function(data2) {
-          debugger
           $('#lists').html("")
           $('#comments').html("")
           $('#next').html("")
@@ -47,6 +45,23 @@ $(function() {
               $('#comments').append(data2)
               $('#next').append(nextButton)
         })
+      })
+    })
+
+    $(document).on('submit', ".new_rating", (e) => {
+      e.preventDefault()
+      $.ajax({
+        type: "POST",
+        url: "/ratings",
+        data: {
+          'authenticity_token': $("input[name='authenticity_token']").val(),
+          'rating': {
+            'rating': $("#rating_rating").val()
+          }
+        },
+        success: function(response) {
+          debugger
+        }
       })
     })
 

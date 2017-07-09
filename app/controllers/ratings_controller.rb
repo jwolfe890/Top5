@@ -6,6 +6,9 @@ def new
 end 
 
 def create
+
+  binding.pry
+
   @rating = Rating.new(rating_params)
   @list = List.find_by(id: params[:list_id])
   @rating.rated_id = @list.id
