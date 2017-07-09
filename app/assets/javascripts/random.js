@@ -1,11 +1,15 @@
 $(function() {
+
+  var list_id = undefined
   
-  $("a.lists_link").on("click", function(e){
-      e.preventDefault();
+  $(document).on('click', "a.lists_link", (e) => {
+    e.preventDefault();
     $.ajax({
       method: "GET",
-      url: this.href,
+      url: '/lists',
     }).done(function(data) {
+      $('#lists').html("")
+      $('#average_rating').html("")
       data.forEach(list => {
         let newList = new List(list)
         let listHtml = newList.formatIndex()
@@ -16,16 +20,18 @@ $(function() {
 
   $(document).on('click', ".list_link", (e) => {
       e.preventDefault()
+      list_id = $(e.target).attr('data-id') 
       let id = $(e.target).attr('data-id') 
       $.get(`/lists/${id}.json`, function(data) {
         $.get(`/ratings/new`, function(data2) {
           $('#lists').html("")
+          $('#average_rating').html("")
           let newList = new List(data)
           let listHtml = newList.formatShow()
           let nextButton = newList.formatNext()
           let listTopics = newList.formatTopics()
             $('#lists').append(listHtml)
-            $('#comments').append(data2)
+            $('#average_rating').append(data2)
             $('#next').append(nextButton)
             $('#lists').append("<p>Topics:<p>")
             $('#lists').append(listTopics)
@@ -35,18 +41,22 @@ $(function() {
 
     $(document).on('click', ".next-list", (e) => {
       e.preventDefault()
+      list_id = $(e.target).attr('data-id')
       let id = $(e.target).attr('data-id') 
       $.get(`/lists/${id}/next`, function(data) {
         $.get(`/ratings/new`, function(data2) {
           $('#lists').html("")
-          $('#comments').html("")
+          $('#average_rating').html("")
           $('#next').html("")
             let newList = new List(data)
             let listHtml = newList.formatShow()
             let nextButton = newList.formatNext()
+            let listTopics = newList.formatTopics()
               $('#lists').append(listHtml)
-              $('#comments').append(data2)
+              $('#average_rating').append(data2)
               $('#next').append(nextButton)
+              $('#lists').append("<p>Topics:<p>")
+              $('#lists').append(listTopics)
         })
       })
     })
@@ -59,11 +69,12 @@ $(function() {
         data: {
           'authenticity_token': $("input[name='authenticity_token']").val(),
           'rating': {
-            'rating': $("#rating_rating").val()
+            'rating': $("#rating_rating").val(),
+            'list_id': list_id
           }
         },
         success: function(response) {
-          debugger
+          response
         }
       })
     })
@@ -72,6 +83,7 @@ $(function() {
     this.topics = list.topics
     this.id = list.id
     this.title = list.title
+    this.average_rating = list.average
     this.number1 = list.number1
     this.number2 = list.number2
     this.number3 = list.number3

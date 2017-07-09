@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :lists, only: [:show, :index, :destroy]
 
-  resources :ratings, only: [:new, :create]
+  resources :ratings
 
   post '/lists/:id' => 'lists#destroy', :as => :destroy_list
 

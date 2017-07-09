@@ -18,7 +18,7 @@ class ListsController < ApplicationController
     else
       @list = List.new(list_params)
         if @list.save
-          redirect_to user_list_path(@user, @list)          
+          render 'users/show'
         else
           render :new
         end
@@ -26,10 +26,7 @@ class ListsController < ApplicationController
   end
 
   def show
-    @user = @list.user
-    @rating = Rating.new
-    @list.save
-    render json: @list  
+    render json: @list
   end
 
   def edit
@@ -46,7 +43,7 @@ class ListsController < ApplicationController
 
   def index
     @all_lists = List.all
-    render json: @all_lists 
+    render json: @all_lists
   end 
 
   def update

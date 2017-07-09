@@ -1,0 +1,5 @@
+<% if list.average_rating == nil %>
+<h4>Average Rating: <%= list.ratings.last.rating %></h4>
+<% else %>
+<h4>Average Rating: <%= list.average_rating %></h4>
+<% end %>
