@@ -15,6 +15,7 @@ $(function() {
         let newList = new List(list)
         let listHtml = newList.formatIndex()
         $('#lists').append(listHtml)
+
       })
     })
   })
@@ -75,7 +76,7 @@ $(function() {
           }
         },
         success: function(response) {
-          response
+          debugger
         }
       })
     })
@@ -129,24 +130,6 @@ $(function() {
     `
     return nextButton
   }
-})
-
-var palindrome = "level"
-var palindrome2 = "levelEND"
-var array = []
-
-function palindrome(palindrome2) { 
-
-  for (i = 0; i < palindrome2.length; i ++) {
-    array.push(palindrome[i])
-  }
-
-  return array
-
-}
-
-
   
-
-
+})
 
