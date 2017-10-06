@@ -15,7 +15,6 @@ $(function() {
         let newList = new List(list)
         let listHtml = newList.formatIndex()
         $('#lists').append(listHtml)
-
       })
     })
   })
@@ -130,6 +129,8 @@ $(function() {
     `
     return nextButton
   }
+
+
   
 })
 
