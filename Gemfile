@@ -15,6 +15,10 @@ gem 'omniauth-facebook'
 
 gem 'pry'
 
+gem 'bootstrap', '~> 4.0.0.beta'
+gem 'jquery-rails'
+
+
 gem 'devise'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
