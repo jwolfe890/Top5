@@ -1,12 +1,5 @@
-<br>
-
 <h1>Top 5 of Everything</h1>
-
-<% @all_lists.each do |list| %>
-
-<% if list.user %> 
-<li><%= link_to list.title, list_path(list) %></li>
-<% end %>
-
+  <% @all_lists.each do |list| %>
+  <li><%= link_to list.title, list_path(list) %></li>
 <% end %>
 

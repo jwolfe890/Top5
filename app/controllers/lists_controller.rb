@@ -2,6 +2,7 @@ class ListsController < ApplicationController
 
   before_action :find_user, except: [:index, :show, :destroy, :edit]
   before_action :find_list, except: [:new, :create, :index]
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
 
   def new
     @list = List.new
@@ -25,9 +26,11 @@ class ListsController < ApplicationController
   end
 
   def show
-    @user = @list.user
-    @rating = Rating.new
-    @list.save
+    if current_user
+      @user = @list.user
+      @rating = Rating.new
+      @list.save
+    end
   end
 
   def edit
@@ -43,7 +46,10 @@ class ListsController < ApplicationController
   end
 
   def index
-    @all_lists = List.non_user_lists(current_user)
+    @all_lists = List.all
+    # if current_user?
+    #   @all_lists = List.non_user_lists(current_user)
+    # else @all_lists = List.all
   end 
 
   def update

@@ -13,7 +13,8 @@
   <br>
   <br>
 
-  <% if @list.user.id == current_user.id %>
+<% if current_user %>
+  <% if @list.id == current_user.id %>
     <%= link_to "Edit List", edit_user_list_path(@list.user, @list) %>
   <% elsif @list.raters.include?(current_user) %>
   List's Average Rating: <%= @list.average_rating %>
@@ -25,6 +26,7 @@
     <%= rate.submit "Rate This List (1-10)" %>
   <% end %>
 
+
   <br>
   <br>
 
@@ -34,4 +36,5 @@
 
   <% if @list.user.id == current_user.id %>
     <%= link_to 'Delete List', destroy_list_path(@list), method: "post" %>
+  <% end %>
   <% end %>
