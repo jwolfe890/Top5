@@ -5,6 +5,7 @@ def create
   @list = List.find_by(id: params[:list_id])
   @rating.rated_id = @list.id
   # @rating.rater_id = current_user.id
+  # Feature to possibly later implement
   @rating.save
   redirect_to list_path(@list)
 end

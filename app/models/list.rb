@@ -17,8 +17,6 @@ has_many :raters, through: :ratings, class_name: "User", foreign_key: 'rated_id'
 
 scope :non_user_lists, lambda { |current| where.not(:user_id => current.id) }
 
-scope :recent, -> { order('created_at desc').limit(5) }
-
     def list_topics_attributes=(attributes)
       self.list_topics.destroy_all
       attributes.values.each do |attr| 

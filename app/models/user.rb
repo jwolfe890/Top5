@@ -19,18 +19,4 @@ serialize :found_lists
       end
     end
 
-    def finder(array)
-      @found = []
-        array.each do |number|
-          @found << ListTopic.topic_finder(number)
-        end
-      list_one = []
-      @found.flatten.each do |list2|
-        list_one << List.find_by(id: list2.list_id)
-      end
-      list_one
-        self.found_lists << list_one.uniq
-        self.save
-    end
-
 end

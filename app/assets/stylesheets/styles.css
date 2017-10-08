@@ -327,8 +327,6 @@ pre code {
   padding-top: 150px;
 }
 
-/*html { overflow: hidden; }*/
-
 #footer {
    position:absolute;
    bottom:0;
@@ -341,10 +339,6 @@ pre code {
   display: inline-block;
 }
 
-/*#nr a:link {
-  color: #eebf3f;  
-}*/
-/* visited link grey */
 #nr a:visited {
   color: white;
 }
@@ -361,6 +355,11 @@ pre code {
   color: black;
 }
 
+#promo {
+  margin-left: -150px;
+  margin-right: -150px;
+
+}
 
 
 /* Small devices (tablets, 768px and up) */

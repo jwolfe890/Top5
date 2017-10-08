@@ -1,21 +1,16 @@
-    <section id="promo" class="promo section offset-header">
-        <div class="container text-center">
-            <div class="logo-text">
-                <h2 class="title">Top<span class="highlight">5</span></h2>
-                <p class="intro">Welcome to Top5, where we finally figure out who truly is the greatest!</p>
+<section id="promo" class="promo section offset-header">
+    <div class="container text-center">
+        <div class="logo-text">
+            <h2 class="title">Top<span class="highlight">5</span></h2>
+            <p class="intro">Welcome to Top5, where we finally figure out who truly is the greatest!</p>
+        </div>
+            <div class="aws">
+                   <div class="btns">
+                     <%= link_to "Sign Up", new_user_registration_path, :class => "btn btn-cta-secondary position1"  %>
+            <%= link_to "Login", new_user_session_path, :class => "btn btn-cta-primary position2" %>
             </div>
-
-                <div class="aws">
-                       <div class="btns">
-                         <%= link_to "Sign Up", new_user_registration_path, :class => "btn btn-cta-secondary position1"  %>
-                <%= link_to "Login", new_user_session_path, :class => "btn btn-cta-primary position2" %>
-
-                </div>
-            </div>
-        </div><!--//container-->
-    </section>
-
-    
-      <footer id="footer">
-
-      </footer>
+        </div>
+    </div><!--//container-->
+</section>
+<footer id="footer">
+</footer>

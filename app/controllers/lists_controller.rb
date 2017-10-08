@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 
-  before_action :find_list, except: [:new, :create, :index]
+  before_action :setup, only: [:create, :index]
   skip_before_filter :authenticate_user!, :only => [:index, :show, :create]
 
   def new
@@ -14,11 +14,6 @@ class ListsController < ApplicationController
       @user = User.find_by(id: current_user.id)
         if params[:list_topic]
           @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
-          @recent = List.all.recent
-          @submit = ListTopic.new
-          @highest = List.highest_rating[0..6]
-          @all_topics = Topic.all
-          @lists = List.all
           render :index
         else
           @list = List.new(list_params)
@@ -30,16 +25,12 @@ class ListsController < ApplicationController
         end
     else
       @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
-      @recent = List.all.recent
-      @submit = ListTopic.new
-      @highest = List.highest_rating[0..6]
-      @all_topics = Topic.all
-      @lists = List.all
       render :index
     end 
   end
 
   def show
+    @list = List.find(params[:id])
     if current_user
       @user = @list.user
       @rating = Rating.new
@@ -60,15 +51,10 @@ class ListsController < ApplicationController
   end
 
   def index
-      @submit = ListTopic.new
-      @list = List.new 
-      @recent = List.all.recent
-      @highest = List.highest_rating[0..6]
-      @all_topics = Topic.all
-      @lists = List.all
   end 
 
   def update
+    @list = List.find(params[:id])
     @user = User.find_by(id: params[:user_id])
     if @list.update(list_params)
       redirect_to user_list_path(@user, @list)
@@ -89,12 +75,16 @@ private
     params.require(:list).permit(:title, :number1, :number2, :number3, :number4, :number5, :user_id, :list_topics_attributes => [topic_id: []])
   end
 
-  def find_user
-    @user = User.find(params[:user_id])
-  end
-
   def find_list
     @list = List.find(params[:id])
-  end  
+  end
+
+  def setup
+    @recent = List.all.order(created_at: :desc)
+    @submit = ListTopic.new
+    @highest = List.highest_rating[0..9]
+    @all_topics = Topic.all
+    @lists = List.all
+  end   
 
 end

@@ -1,18 +1,22 @@
 <div class="container text-center">
-    <h3>Most Recent Top 5 Lists</h3>
-      <% @recent.each do |list| %>
-      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
-      <% end %>
-
-    <h3>Highest Rated Lists</h3>
+  <div class="row">
+    <div class="col-lg-4">
+       <h3>Highest Rated Lists</h3>
       <% @highest.each do |list| %>
-      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating > 0 %><br>Average Rating: <%= list.average_rating %><% end %>
       <% end %>
-
-    <% if @found %>
+    </div>
+    <div class="col-lg-4">
+        <h3>Most Recent Top 5 Lists</h3>
+      <% @recent.each do |list| %>
+      <li style="font-size: 150%"><%= link_to list.title, list_path(list) %>
+      <% end %>
+    </div>
+    <div class="col-lg-4">
+          <% if @found %>
       <h3>Found Lists</h3>
       <% @found.each do |list| %>
-    <li><%= list.title %></li>
+    <li><%= link_to list.title, list_path(list) %></li>
   <% end %>
   <% end %>
 
@@ -21,5 +25,10 @@
       <%= f.collection_select(:topic_id, @all_topics, :id, :name, {}, {multiple: true}) %>
       <%= f.submit "Search Lists By Topic" %>
     <% end %>
+    </div>
+  </div>
 </div>
+</div>
+
+
 
