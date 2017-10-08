@@ -6,15 +6,13 @@ Rails.application.routes.draw do
 
   root 'welcome#home'
 
-  resources :lists, only: [:show, :index, :destroy]
-
   post '/lists/:id' => 'lists#destroy', :as => :destroy_list
 
   resources :users do
     resources :lists
   end
 
-  resources :lists do 
+  resources :lists do
     resources :ratings, only: [:create]
   end
 

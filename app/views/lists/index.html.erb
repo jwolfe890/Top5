@@ -1,5 +1,25 @@
-<h1>Top 5 of Everything</h1>
-  <% @all_lists.each do |list| %>
-  <li><%= link_to list.title, list_path(list) %></li>
-<% end %>
+<div class="container text-center">
+    <h3>Most Recent Top 5 Lists</h3>
+      <% @recent.each do |list| %>
+      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+      <% end %>
+
+    <h3>Highest Rated Lists</h3>
+      <% @highest.each do |list| %>
+      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating %>Average Rating: <%= list.average_rating %><% end %>
+      <% end %>
+
+    <% if @found %>
+      <h3>Found Lists</h3>
+      <% @found.each do |list| %>
+    <li><%= list.title %></li>
+  <% end %>
+  <% end %>
+
+    <h3>Search Lists By Topic</h3>
+      <%= form_for @submit, url: lists_path do |f| %>
+      <%= f.collection_select(:topic_id, @all_topics, :id, :name, {}, {multiple: true}) %>
+      <%= f.submit "Search Lists By Topic" %>
+    <% end %>
+</div>
 

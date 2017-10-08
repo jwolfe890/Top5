@@ -1,27 +1,41 @@
 class ListsController < ApplicationController
 
-  before_action :find_user, except: [:index, :show, :destroy, :edit]
   before_action :find_list, except: [:new, :create, :index]
-  skip_before_filter :authenticate_user!, :only => [:index, :show]
+  skip_before_filter :authenticate_user!, :only => [:index, :show, :create]
 
   def new
+    @user = User.find_by(id: current_user.id)
     @list = List.new
     @all_topics = Topic.all
   end
 
   def create
-    if params[:list_topic]
-      @user.found_lists = []
-      array = params[:list_topic][:topic_id].delete_if(&:empty?)
-      @user.finder(array)
-      redirect_to profile_path(:param1 => 1) 
-    else
-      @list = List.new(list_params)
-        if @list.save
-          redirect_to user_list_path(@user, @list)          
+    if current_user
+      @user = User.find_by(id: current_user.id)
+        if params[:list_topic]
+          @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
+          @recent = List.all.recent
+          @submit = ListTopic.new
+          @highest = List.highest_rating[0..6]
+          @all_topics = Topic.all
+          @lists = List.all
+          render :index
         else
-          render :new
+          @list = List.new(list_params)
+            if @list.save
+              redirect_to user_list_path(@user, @list)          
+            else
+              render :new
+            end
         end
+    else
+      @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
+      @recent = List.all.recent
+      @submit = ListTopic.new
+      @highest = List.highest_rating[0..6]
+      @all_topics = Topic.all
+      @lists = List.all
+      render :index
     end 
   end
 
@@ -29,7 +43,7 @@ class ListsController < ApplicationController
     if current_user
       @user = @list.user
       @rating = Rating.new
-      @list.save
+      @list_rating = @list.average_rating
     end
   end
 
@@ -46,13 +60,16 @@ class ListsController < ApplicationController
   end
 
   def index
-    @all_lists = List.all
-    # if current_user?
-    #   @all_lists = List.non_user_lists(current_user)
-    # else @all_lists = List.all
+      @submit = ListTopic.new
+      @list = List.new 
+      @recent = List.all.recent
+      @highest = List.highest_rating[0..6]
+      @all_topics = Topic.all
+      @lists = List.all
   end 
 
   def update
+    @user = User.find_by(id: params[:user_id])
     if @list.update(list_params)
       redirect_to user_list_path(@user, @list)
     else

@@ -13,6 +13,8 @@ gem 'sqlite3'
 
 gem 'omniauth-facebook'
 
+gem "active_link_to"
+
 gem 'pry'
 
 gem 'devise'
