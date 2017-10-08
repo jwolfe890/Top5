@@ -30,11 +30,15 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id])
-    if current_user
-      @user = @list.user
-      @rating = Rating.new
-      @list_rating = @list.average_rating
+    if List.find_by(id: params[:id]) != nil
+      @list = List.find(params[:id])
+      if current_user
+        @user = @list.user
+        @rating = Rating.new
+        @list_rating = @list.average_rating
+      end
+    else 
+      redirect_to "/"
     end
   end
 
