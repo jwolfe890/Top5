@@ -13,7 +13,7 @@ class ListsController < ApplicationController
     if current_user
       @user = User.find_by(id: current_user.id)
         if params[:list_topic]
-          @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
+          found
           render :index
         else
           @list = List.new(list_params)
@@ -24,7 +24,7 @@ class ListsController < ApplicationController
             end
         end
     else
-      @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
+      found
       render :index
     end 
   end
@@ -82,6 +82,10 @@ private
   def find_list
     @list = List.find(params[:id])
   end
+
+  def found
+    @found = List.joins(:topics).merge(Topic.where(id: params[:list_topic][:topic_id].delete_if(&:empty?)))
+  end 
 
   def setup
     @recent = List.all.order(created_at: :desc)
