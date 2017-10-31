@@ -9,7 +9,6 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use sqlite3 as the database for Active Record
-gem 'pg'
 
 gem 'omniauth-facebook'
 
@@ -60,7 +59,7 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
+    gem 'pg', '0.17.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
