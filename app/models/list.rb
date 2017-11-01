@@ -1,4 +1,4 @@
-require './list'
+# require 'list'
 
 class List < ApplicationRecord
 
