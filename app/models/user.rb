@@ -1,7 +1,5 @@
 class User < ApplicationRecord
 
-require 'List'
-
 serialize :found_lists
   
   devise :database_authenticatable, :registerable,

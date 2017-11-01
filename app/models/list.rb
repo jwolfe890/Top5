@@ -1,5 +1,3 @@
-# require 'list'
-
 class List < ApplicationRecord
 
 validates :title, :number1, :number2, :number3, :number4, :number5, presence: true
