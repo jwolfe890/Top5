@@ -1,9 +1,3 @@
-require 'pathname'
-RailsRoot = Pathname.new(RAILS_ROOT).expand_path
-
-print "Loading data..."
-fileData = File.read (RailsRoot + "db/data-file.csv")
-
 @topic = Topic.create(name: "Entertainment")
 @topic2 = Topic.create(name: "Politics")
 @topic3 = Topic.create(name: "Sports")
