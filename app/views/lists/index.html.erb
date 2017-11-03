@@ -3,7 +3,7 @@
     <div class="col-lg-4">
        <h3>Highest Rated Lists</h3>
       <% @highest.each do |list| %>
-      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating > 0 %><br>Average Rating: <%= list.average_rating %><% end %>
+      <li><%= link_to list.title, list_path(list) %> <% if list.average_rating && list.average_rating > 0 %><br>Average Rating: <%= list.average_rating %><% end %>
       <% end %>
     </div>
     <div class="col-lg-4">

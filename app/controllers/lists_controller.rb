@@ -44,6 +44,7 @@ class ListsController < ApplicationController
 
   def edit
     if params[:user_id]
+      @list = List.find_by(id: params[:id]) 
       @user = User.find(params[:user_id])
       @list2 = List.new
       @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
