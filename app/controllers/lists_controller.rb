@@ -17,8 +17,9 @@ class ListsController < ApplicationController
           render :index
         else
           @list = List.new(list_params)
+          binding.pry
             if @list.save
-              redirect_to user_list_path(@user, @list)          
+              redirect_to user_list_path(@user, @list)           
             else
               render :new
             end
@@ -44,6 +45,7 @@ class ListsController < ApplicationController
 
   def edit
     if params[:user_id]
+      @list = List.find(params[:id])
       @user = User.find(params[:user_id])
       @list2 = List.new
       @list.title = @list.title.sub(/(Top 5 Greatest){1}\s/, '')
@@ -61,6 +63,7 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     @user = User.find_by(id: params[:user_id])
     if @list.update(list_params)
+      @list.change_title
       redirect_to user_list_path(@user, @list)
     else
       render :edit
@@ -68,6 +71,7 @@ class ListsController < ApplicationController
   end
 
   def destroy
+    @list = List.find(params[:id])
     @user = @list.user
     @list.delete
     redirect_to user_path(@user)

@@ -358,7 +358,10 @@ pre code {
 #promo {
   margin-left: -150px;
   margin-right: -150px;
+}
 
+html {
+  background:#17baef;
 }
 
 
